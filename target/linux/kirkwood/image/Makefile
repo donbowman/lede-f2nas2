@@ -27,6 +27,14 @@ define Device/Default
   SUPPORTED_DEVICES := $(subst _,$(comma),$(1))
 endef
 
+define Device/terramaster_f2nas2
+  DEVICE_TITLE := TerraMaster F2-NAS2
+  DEVICE_DTS := kirkwood-f2nas2
+  DEVICE_PACKAGES := kmod-usb3
+  BOARD_NAME := f2nas2
+endef
+TARGET_DEVICES += terramaster_f2nas2
+
 define Device/cisco_on100
   DEVICE_TITLE := Cisco Systems ON100
   DEVICE_DTS := kirkwood-on100

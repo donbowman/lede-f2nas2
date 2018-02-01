@@ -10,6 +10,8 @@ board_config_update
 board=$(board_name)
 
 case "$board" in
+"terramaster,f2nas2'")
+        ;;
 "cloudengines,pogoe02")
 	ucidef_set_led_default "health" "health" "pogo_e02:green:health" "1"
 	ucidef_set_led_default "fault" "fault" "pogo_e02:orange:fault" "1"

@@ -6,6 +6,8 @@
 
 get_status_led() {
 	case $(board_name) in
+        terramaster,f2nas2)
+                ;;
 	cisco,on100)
 		status_led="on100:green:health"
 		;;

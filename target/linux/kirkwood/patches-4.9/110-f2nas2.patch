@@ -1,0 +1,94 @@
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -188,6 +188,7 @@ dtb-$(CONFIG_MACH_KIRKWOOD) += \
+	kirkwood-d2net.dtb \
+	kirkwood-db-88f6281.dtb \
+	kirkwood-db-88f6282.dtb \
++       kirkwood-f2nas2.dtb \
+	kirkwood-dir665.dtb \
+	kirkwood-dns320.dtb \
+	kirkwood-dns325.dtb \
+--- /dev/null
++++ b/arch/arm/boot/dts/kirkwood-f2nas2.dts
+@@ -0,0 +1,81 @@
++/*
++ * kirkwood-f2nas2.dts - Device tree file for TerraMaster F2-NAS2
++ *
++ * Copyright (C) 2018 Don Bowman <db@donbowman.ca>
++ *
++ * This file is licensed under the terms of the GNU General Public
++ * License version 2.  This program is licensed "as is" without any
++ * warranty of any kind, whether express or implied.
++ */
++
++/dts-v1/;
++
++#include "kirkwood-db.dtsi"
++#include "kirkwood-6282.dtsi"
++
++/ {
++	model = "TerraMaster F2-NAS2";
++	compatible = "terramaster,f2nas2", "marvell,db-88f6282-bp", "marvell,kirkwood-88f6282", "marvell,kirkwood";
++
++	memory {
++		device_type = "memory";
++		reg = <0x00000000 0x40000000>;
++	};
++
++	chosen {
++		bootargs = "console=ttyS0,115200";
++		stdout-path = "uart0:115200n8";
++	};
++};
++
++&pciec {
++        status = "okay";
++};
++
++&pcie0 {
++	status = "okay";
++};
++
++&pcie1 {
++	status = "okay";
++};
++
++&nand {
++	/* 512 MiB of NAND flash */
++	chip-delay = <40>;
++	status = "okay";
++	partitions {
++		compatible = "fixed-partitions";
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		partition@0 {
++			label = "bootloader";
++			reg = <0x00000000 0x100000>;
++			read-only;
++		};
++
++		partition@100000 {
++			label = "data";
++			reg = <0x00100000 0x400000>;
++		};
++
++		partition@500000 {
++			label = "backup-kernel";
++			reg = <0x00500000 0x1000000>;
++		};
++		partition@1500000 {
++			label = "backup-system";
++			reg = <0x01500000 0x6400000>;
++		};
++		partition@7900000 {
++			label = "kernel";
++			reg = <0x07900000 0x1000000>;
++		};
++		partition@8900000 {
++			label = "rootfs";
++			reg = <0x08900000 0x6400000>;
++		};
++
++	};
++};
